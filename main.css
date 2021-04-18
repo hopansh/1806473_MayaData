@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+body,html {
+    height: 100%;
+  margin: 0;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+}
+#body {
+  width: 100%;
+  display: inline-flex;
+  overflow: hidden;
+}
+#navpanel {
+  background: #1e5f74;
+  height: 100vh;
+  width: 18%;
+}
+#header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20vh;
+}
+.menuIcon {
+  display: inline-block;
+  cursor: pointer;
+  margin: 10px 10px 10px 10px;
+}
+.bar1,
+.bar2,
+.bar3 {
+  width: 2rem;
+  height: 0.2rem;
+  background-color: #ffffff;
+  margin: 6px 0;
+  transition: 0.4s;
+  border-radius: 10px;
+}
+.bar3 {
+  width: 1rem;
+}
+.menu {
+  margin-top: 2rem;
+  width: 100%;
+  height: 12vh;
+}
+#home,
+#about {
+  margin-top: 1rem;
+  height: 50%;
+  display: flex;
+  align-items: center;
+}
+.material-icons {
+  padding: 1rem 1rem 1rem 1rem;
+}
+.selected {
+  background-color: #133b5c;
+}
+#iframe{
+    margin: 0;
+    padding: 0;
+    color:white;
+    background-color: #e5e5e5;
+    height: 100vh;
+    width: 82%;
+}
+iframe{
+  height: 100%;
+  width: 100%;
+}

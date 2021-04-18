@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/home.css" type="text/css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>My Meetings</h1>
+    <div id="filter">
+      <div id="input">
+        <i class="material-icons">search</i>
+        <input type="text" placeholder="Search" id="search" />
+      </div>
+      <div>
+        <label for="dtFrom">From:</label>
+        <input type="date" name="dtFrom" id="dtFrom" />
+      </div>
+      <div>
+        <label for="dtTo">To:</label>
+        <input type="date" name="dtTo" id="dtTo" />
+      </div>
+    </div>
+    <div id="meetings">
+      <table>
+        <thead>
+          <tr align="left">
+            <th>Sl. no</th>
+            <th>Meeting name</th>
+            <th>No. of People attending</th>
+            <th>Date</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <% var i=0; if (data!=undefined) { data.forEach(function(row,err){ %>
+          <tr>
+            <td><%= ++i %></td>
+            <td name="RowName"><%= row.name %> </td>
+            <td name="RowCount"><%= row.count %></td>
+            <td name=""><%= new Date(row.date).toISOString().slice(0,10)  %></td>
+            <td name=""><%= row.start  %></td>
+            <td name=""><%= row.end %></td>
+            <td name=""><a href=<%="/delete/"+row._id %> onclick="window.location.reload();"><i id="delIcon" class="material-icons">delete</i></a></td>
+          </tr>
+          <% })}%>
+        </tbody>
+        <tbody id="tadd">
+          <tr>
+            <td></td>
+            <form id="addForm" action="add" method="POST">
+              <td>
+                <div id="input">
+                  <input
+                    required
+                    type="text"
+                    name="name"
+                    placeholder="Meeting's Name"
+                    id="name"
+                  />
+                </div>
+              </td>
+              <td>
+                <div>
+                  <input required type="number" name="count" id="count" />
+                </div>
+              </td>
+              <td>
+                <div>
+                  <input required type="date" name="date" id="datet" />
+                </div>
+              </td>
+              <td>
+                <div>
+                  <input required type="time" name="start" id="start" />
+                </div>
+              </td>
+              <td>
+                <div>
+                  <input required type="time" name="end" id="end" />
+                </div>
+              </td>
+              <td>
+                <div>
+                  <button type="submit" class="add">Add</button>
+                </div>
+              </td>
+            </form>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <script src="js/home.js"></script> -->
+    </div>
+  </body>
+</html>
