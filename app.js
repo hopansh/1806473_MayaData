@@ -19,7 +19,7 @@ app.post("/add", async (req, res) => {
     const myMeet = new Meeting(req.body);
     console.log(req.body);
     await myMeet.save();
-    res.redirect("/home");
+    res.redirect("home");
   } catch (err) {
     res.send({ message: err });
   }
@@ -45,7 +45,7 @@ app.get("/delete/:id", async (req, res) => {
   );
 });
 app.get("", (req, res) => {
-  res.render("/index");
+  res.render("index");
 });
 app.get("/home", (req, res) => {
   var result = [];
@@ -65,7 +65,7 @@ app.get("/home", (req, res) => {
           },
           function () {
             db.close();
-            res.render("/home", { data: result });
+            res.render("home", { data: result });
           }
         );
     }
