@@ -25,9 +25,14 @@ app.post("/add", async (req, res) => {
 });
 app.post("/search", async (req, res) => {
   console.log(req.body);
-  var name=req.body.search;
-  var start=req.params.start;
-  var end=req.params.start;
+  var name = req.body.search;
+  var start;
+  var end;
+  if (req.body.dtFrom == "") start = "1999-01-01";
+  else start = req.body.dtFrom;
+  if (req.body.dtTo == "") end = "2050-04-30";
+  else end = req.body.dtTo;
+  console.log(start);
   var result = [];
   MongoClient.connect(
     process.env.DB_STRING,
@@ -37,7 +42,13 @@ app.post("/search", async (req, res) => {
       var cursor = db.db("myFirstDatabase");
       cursor
         .collection("meetings")
-        .find({"name":{$regex : ".*"+name+".*"}})
+        .find({
+          name: { $regex: ".*" + name + ".*" },
+          date: {
+            $gte: new Date(start),
+            $lt: new Date(end),
+          },
+        })
         .forEach(
           function (doc, err) {
             if (err) console.log(err);
@@ -67,7 +78,7 @@ app.get("/delete/:id", async (req, res) => {
           function (err, obj) {
             if (err) throw err;
             db.close();
-          },
+          }
         );
     }
   );
@@ -111,6 +122,6 @@ mongoose.connect(
   }
 );
 
-app.listen(process.env.PORT ||5000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Server Started");
 });
