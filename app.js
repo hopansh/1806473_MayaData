@@ -27,7 +27,7 @@ app.post("/add", async (req, res) => {
 app.get("/delete/:id", async (req, res) => {
   const id = req.params.id;
   MongoClient.connect(
-    process.env.DB_STRING,
+    "mongodb+srv://adminHopansh:Hop@n$hg14@meetings.qpmuj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     { useUnifiedTopology: true },
     function (err, db) {
       if (err) throw err;
@@ -50,7 +50,7 @@ app.get("", (req, res) => {
 app.get("/home", (req, res) => {
   var result = [];
   MongoClient.connect(
-    process.env.DB_STRING,
+    "mongodb+srv://adminHopansh:Hop@n$hg14@meetings.qpmuj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     { useUnifiedTopology: true },
     function (err, db) {
       if (err) throw err;
@@ -76,7 +76,7 @@ app.get("/about", (req, res) => {
 });
 
 mongoose.connect(
-  process.env.DB_STRING,
+  "mongodb+srv://adminHopansh:Hop@n$hg14@meetings.qpmuj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   { useUnifiedTopology: true, useNewUrlParser: true },
   (req, res) => {
     console.log("Connected to dB");
