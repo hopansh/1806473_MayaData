@@ -9,10 +9,11 @@
   </head>
   <body>
     <h1>My Meetings</h1>
+    <form action="search" method="POST">
     <div id="filter">
       <div id="input">
         <i class="material-icons">search</i>
-        <input type="text" placeholder="Search" id="search" />
+        <input type="text" placeholder="Search" id="search" name="search" />
       </div>
       <div>
         <label for="dtFrom">From:</label>
@@ -23,6 +24,7 @@
         <input type="date" name="dtTo" id="dtTo" />
       </div>
     </div>
+  </form>
     <div id="meetings">
       <table>
         <thead>

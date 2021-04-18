@@ -17,17 +17,45 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post("/add", async (req, res) => {
   try {
     const myMeet = new Meeting(req.body);
-    console.log(req.body);
     await myMeet.save();
     res.redirect("home");
   } catch (err) {
     res.send({ message: err });
   }
 });
+app.post("/search", async (req, res) => {
+  console.log(req.body);
+  var name=req.body.search;
+  var start=req.params.start;
+  var end=req.params.start;
+  var result = [];
+  MongoClient.connect(
+    process.env.DB_STRING,
+    { useUnifiedTopology: true },
+    function (err, db) {
+      if (err) throw err;
+      var cursor = db.db("myFirstDatabase");
+      cursor
+        .collection("meetings")
+        .find({"name":{$regex : ".*"+name+".*"}})
+        .forEach(
+          function (doc, err) {
+            if (err) console.log(err);
+            result.push(doc);
+          },
+          function () {
+            db.close();
+            res.render("home", { data: result });
+          }
+        );
+    }
+  );
+});
+
 app.get("/delete/:id", async (req, res) => {
   const id = req.params.id;
   MongoClient.connect(
-    "mongodb+srv://adminHopansh:Hop@n$hg14@meetings.qpmuj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    process.env.DB_STRING,
     { useUnifiedTopology: true },
     function (err, db) {
       if (err) throw err;
@@ -50,7 +78,7 @@ app.get("", (req, res) => {
 app.get("/home", (req, res) => {
   var result = [];
   MongoClient.connect(
-    "mongodb+srv://adminHopansh:Hop@n$hg14@meetings.qpmuj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    process.env.DB_STRING,
     { useUnifiedTopology: true },
     function (err, db) {
       if (err) throw err;
@@ -76,7 +104,7 @@ app.get("/about", (req, res) => {
 });
 
 mongoose.connect(
-  "mongodb+srv://adminHopansh:Hop@n$hg14@meetings.qpmuj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  process.env.DB_STRING,
   { useUnifiedTopology: true, useNewUrlParser: true },
   (req, res) => {
     console.log("Connected to dB");
